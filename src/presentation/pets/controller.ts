@@ -38,15 +38,20 @@ export class PetController {
   };
 
   delete = (req: Request, res: Response) => {
+    const { id } = req.params;
+
     this.deletePetService
-      .execute()
+      .execute(id)
       .then((result) => res.status(200).json(result))
       .catch((error) => res.status(500).json(error));
   };
 
   update = (req: Request, res: Response) => {
+    const { id } = req.params;
+    const data = req.body;
+
     this.updatePetService
-      .execute()
+      .execute(id, data)
       .then((result) => res.status(200).json(result))
       .catch((error) => res.status(500).json(error));
   };

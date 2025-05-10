@@ -11,8 +11,8 @@ export class PetRoutes {
 
     const createPetService = new CreatorPetService();
     const finderPetService = new FinderPetService();
-    const deletePetService = new DeletePetService();
-    const updatePetService = new UpdatePetService();
+    const deletePetService = new DeletePetService(finderPetService);
+    const updatePetService = new UpdatePetService(finderPetService);
     const controller = new PetController(
       createPetService,
       finderPetService,

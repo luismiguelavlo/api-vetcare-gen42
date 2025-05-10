@@ -2,7 +2,11 @@ import { Pet } from "../../../data";
 
 export class FinderPetService {
   async executeByFindAll() {
-    const pets = await Pet.find();
+    const pets = await Pet.find({
+      where: {
+        status: true,
+      },
+    });
     return pets;
   }
 
@@ -10,6 +14,7 @@ export class FinderPetService {
     const pet = await Pet.findOne({
       where: {
         id,
+        status: true,
       },
     });
 
