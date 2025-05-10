@@ -1,8 +1,8 @@
-import "reflect-metadata";
-import { AppRoutes } from "./presentation/routes";
-import { Server } from "./presentation/server";
-import { PostgresDatabase } from "./data";
-import { envs } from "./config";
+import 'reflect-metadata';
+import { AppRoutes } from './presentation/routes';
+import { Server } from './presentation/server';
+import { PostgresDatabase } from './data';
+import { envs } from './config';
 
 async function main() {
   const postgres = new PostgresDatabase({
