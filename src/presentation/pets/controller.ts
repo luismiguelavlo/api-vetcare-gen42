@@ -25,7 +25,7 @@ export class PetController {
     }
 
     this.creatorPetService
-      .execute(data)
+      .execute(data!)
       .then((result) => res.status(201).json(result))
       .catch((error) => handleError(error, res));
   };
@@ -67,7 +67,7 @@ export class PetController {
     }
 
     this.updatePetService
-      .execute(id, data)
+      .execute(id, data!)
       .then((result) => res.status(200).json(result))
       .catch((error) => handleError(error, res));
   };
