@@ -1,4 +1,5 @@
-import { FinderPetService } from "./finder-pet.service";
+import { CustomError } from '../../../domain';
+import { FinderPetService } from './finder-pet.service';
 
 export class DeletePetService {
   constructor(private readonly finderPetService: FinderPetService) {}
@@ -11,11 +12,10 @@ export class DeletePetService {
     try {
       await pet.save();
       return {
-        message: "Pet deleted successfully",
+        message: 'Pet deleted successfully',
       };
     } catch (error) {
-      console.error(error);
-      throw new Error("Failed to delete pet");
+      throw CustomError.internalServer('Something went very wrong!');
     }
   }
 }

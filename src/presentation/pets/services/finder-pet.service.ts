@@ -1,4 +1,5 @@
-import { Pet } from "../../../data";
+import { Pet } from '../../../data';
+import { CustomError } from '../../../domain';
 
 export class FinderPetService {
   async executeByFindAll() {
@@ -19,7 +20,7 @@ export class FinderPetService {
     });
 
     if (!pet) {
-      throw new Error("Pet not found");
+      throw CustomError.notFound('Pet not found');
     }
 
     return pet;
