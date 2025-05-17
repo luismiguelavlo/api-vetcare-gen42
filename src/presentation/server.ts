@@ -1,4 +1,5 @@
 import express, { Router } from 'express';
+import cookieParser from 'cookie-parser';
 
 interface Options {
   port: number;
@@ -18,6 +19,7 @@ export class Server {
   async start() {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(cookieParser());
 
     //rutas
     this.app.use(this.routes);

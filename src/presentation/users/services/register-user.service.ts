@@ -1,8 +1,11 @@
 import { encryptAdapter, JwtAdapter } from '../../../config';
 import { User } from '../../../data/postgres/models/user.model';
 import { CustomError, RegisterUserDto } from '../../../domain';
+import { EmailService } from '../../common/services/email.service';
 
 export class RegisterUserService {
+  constructor(private readonly emailService: EmailService) {}
+
   async execute(data: RegisterUserDto) {
     const user = new User();
 
@@ -27,7 +30,19 @@ export class RegisterUserService {
     if (!token) throw CustomError.internalServer('Error gettin token');
 
     const link = `http://localhost:3000/api/v1/users/validate-account/${token}`;
-    console.log(link);
+    const html = `
+      <h1>Validate Your email</h1>
+      <p>Click on the following link to validate your email</p>
+      <a href="${link}">Validate your email: ${email}</a>
+    `;
+
+    const isSent = await this.emailService.sendEmail({
+      to: email,
+      subject: 'Validate your account!',
+      htmlBody: html,
+    });
+    if (!isSent) throw CustomError.internalServer('Error sending email');
+    return true;
   };
 
   public validateAccount = async (token: string) => {
