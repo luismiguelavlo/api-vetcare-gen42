@@ -1,12 +1,18 @@
 import { Pet } from '../../../data';
 import { CreatePetDto, CustomError } from '../../../domain';
+import { FinderUserService } from '../../users/services/finder-user.service';
 
 export class CreatorPetService {
+  constructor(private finderUserService: FinderUserService) {}
+
   async execute(data: CreatePetDto) {
+    const user = await this.finderUserService.execute(data.userId);
+
     const pet = new Pet();
     pet.name = data.name;
     pet.breed = data.breed;
     pet.weight = data.weight;
+    pet.user = user;
 
     try {
       await pet.save();

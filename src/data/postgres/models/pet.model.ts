@@ -1,4 +1,13 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from './user.model';
 
 /*export enum PetStatus {
   ACTIVE = "active",
@@ -38,4 +47,8 @@ export class Pet extends BaseEntity {
     default: PetStatus.ACTIVE,
   })
   status: PetStatus;*/
+
+  @ManyToOne(() => User, (user) => user.pet)
+  @JoinColumn({ name: 'owner' })
+  user: User;
 }

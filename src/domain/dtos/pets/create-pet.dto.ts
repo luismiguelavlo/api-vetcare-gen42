@@ -46,13 +46,15 @@ export const CreatePetSechema = object({
     minValue(0.1, 'weight must be a positive number'),
     maxValue(200, 'weight must be a most 200')
   ),
+  userId: pipe(string('userId is required')),
 });
 
 export class CreatePetDto {
   constructor(
     public readonly name: string,
     public readonly breed: string,
-    public readonly weight: number
+    public readonly weight: number,
+    public readonly userId: string
   ) {}
 
   static execute(input: { [key: string]: any }): [string?, CreatePetDto?] {
@@ -63,12 +65,13 @@ export class CreatePetDto {
       return [error];
     }
 
-    const { name, breed, weight } = result.output as {
+    const { name, breed, weight, userId } = result.output as {
       name: string;
       breed: string;
       weight: number;
+      userId: string;
     };
-    return [undefined, new CreatePetDto(name, breed, weight)];
+    return [undefined, new CreatePetDto(name, breed, weight, userId)];
   }
 }
 

@@ -7,8 +7,8 @@ export class UpdatePetService {
   async execute(id: string, data: CreatePetDto) {
     const pet = await this.finderPetService.executeByFindOne(id);
 
-    pet!.weight = data.weight;
-    pet!.breed = data.breed;
+    pet.weight = data.weight;
+    pet.breed = data.breed;
 
     try {
       await pet!.save();

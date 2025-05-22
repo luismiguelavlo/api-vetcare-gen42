@@ -7,12 +7,31 @@ export class FinderPetService {
       where: {
         status: true,
       },
+      relations: ['user'],
+      select: {
+        user: {
+          id: true,
+          fullname: true,
+          phone_number: true,
+          photo_url: true,
+          email: true,
+        },
+      },
     });
     return pets;
   }
 
   async executeByFindOne(id: string) {
-    const pet = Pet.createQueryBuilder('pet')
+    const pet = await Pet.createQueryBuilder('pet')
+      .leftJoinAndSelect('pet.user', 'user')
+      .select([
+        'pet',
+        'user.id',
+        'user.fullname',
+        'user.email',
+        'user.phone_number',
+        'user.photo_url',
+      ])
       .where('pet.id = :petId', { petId: id })
       .andWhere('pet.status = :status', { status: true })
       .getOne();

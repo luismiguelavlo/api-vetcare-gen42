@@ -6,12 +6,14 @@ import { DeletePetService } from './services/delete-pet.service';
 import { UpdatePetService } from './services/update-pet.service';
 import { AuthMiddleware } from '../common/middlewares/auth.middleware';
 import { UserRole } from '../../data/postgres/models/user.model';
+import { FinderUserService } from '../users/services/finder-user.service';
 
 export class PetRoutes {
   static get routes(): Router {
     const router = Router();
 
-    const createPetService = new CreatorPetService();
+    const finderUserService = new FinderUserService();
+    const createPetService = new CreatorPetService(finderUserService);
     const finderPetService = new FinderPetService();
     const deletePetService = new DeletePetService(finderPetService);
     const updatePetService = new UpdatePetService(finderPetService);
