@@ -12,12 +12,10 @@ export class FinderPetService {
   }
 
   async executeByFindOne(id: string) {
-    const pet = await Pet.findOne({
-      where: {
-        id,
-        status: true,
-      },
-    });
+    const pet = Pet.createQueryBuilder('pet')
+      .where('pet.id = :petId', { petId: id })
+      .andWhere('pet.status = :status', { status: true })
+      .getOne();
 
     if (!pet) {
       throw CustomError.notFound('Pet not found');

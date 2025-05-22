@@ -1,4 +1,4 @@
-import { encryptAdapter, JwtAdapter } from '../../../config';
+import { encryptAdapter, envs, JwtAdapter } from '../../../config';
 import { User } from '../../../data/postgres/models/user.model';
 import { CustomError, RegisterUserDto } from '../../../domain';
 import { EmailService } from '../../common/services/email.service';
@@ -21,6 +21,9 @@ export class RegisterUserService {
         message: 'User created sucessfully',
       };
     } catch (error) {
+      if (envs.LOGGER) {
+        console.log(error);
+      }
       throw CustomError.internalServer('Something went very wrong!');
     }
   }
