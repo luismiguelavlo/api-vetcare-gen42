@@ -19,7 +19,7 @@ export class CreatorAppointmentService {
 
     const [doctor, pet] = await Promise.all([doctorPromise, petPromise]);
 
-    const formatDate = moment(data.date).format('YYYY-MM-DD h:mm:ss');
+    const formatDate = moment(data.date).format('YYYY-MM-DD HH:mm:ss');
     await this.ensureAppointmentExist(data, formatDate); //TODO: validar porque no esta funcionando
 
     const appointment = new Appointment();

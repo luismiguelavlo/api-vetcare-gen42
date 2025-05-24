@@ -3,6 +3,7 @@ import { CreatorAppointmentService } from './services/creator-appointment.servic
 import { AppointmentController } from './controller';
 import { FinderPetService } from '../pets/services/finder-pet.service';
 import { FinderDoctorService } from '../doctors/services/finder-doctor.service';
+import { FinderAppointmentService } from './services/finder-appointment.service';
 
 export class AppointmentRoutes {
   static get routes(): Router {
@@ -14,9 +15,14 @@ export class AppointmentRoutes {
       finderPetService,
       finderDoctorService
     );
-    const controller = new AppointmentController(creatorAppointmentService);
+    const finderAppointmentService = new FinderAppointmentService();
+    const controller = new AppointmentController(
+      creatorAppointmentService,
+      finderAppointmentService
+    );
 
     router.post('/', controller.create);
+    router.get('/:term/:id', controller.getAppointmentByTerm);
 
     return router;
   }
