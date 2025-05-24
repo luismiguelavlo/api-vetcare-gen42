@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Pet } from './pet.model';
+import { Appointment } from './appointment.model';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -59,4 +60,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Pet, (pet) => pet.user)
   pet: Pet[];
+
+  @OneToMany(() => Appointment, (appointment) => appointment.user)
+  appointments: Appointment[];
 }

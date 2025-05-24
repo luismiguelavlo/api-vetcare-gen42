@@ -5,9 +5,11 @@ import {
   JoinColumn,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user.model';
+import { Appointment } from './appointment.model';
 
 /*export enum PetStatus {
   ACTIVE = "active",
@@ -51,4 +53,7 @@ export class Pet extends BaseEntity {
   @ManyToOne(() => User, (user) => user.pet)
   @JoinColumn({ name: 'owner' })
   user: User;
+
+  @OneToMany(() => Appointment, (appointment) => appointment.pet)
+  appointments: Appointment[];
 }
