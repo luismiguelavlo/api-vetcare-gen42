@@ -1,5 +1,4 @@
-process.loadEnvFile();
-//import 'dotenv/config';
+import 'dotenv/config';
 import { get } from 'env-var';
 
 export const envs = {
