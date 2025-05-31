@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  app1:
+    build: .
+    container_name: myapp1
+    restart: always
+    ports: 
+      - "3001:3000"
+    env_file:
+      - .env
+
+  app2:
+    build: .
+    container_name: myapp2
+    restart: always
+    ports: 
+      - "3002:3000"
+    env_file:
+      - .env
+
+  app3:
+    build: .
+    container_name: myapp3
+    restart: always
+    ports: 
+      - "3003:3000"
+    env_file:
+      - .env
+
+  # postgres-db:
+  #   image: postgres:15.3
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: useradm
+  #     POSTGRES_DB: vetcaredocker
+  #     POSTGRES_PASSWORD: pass1234
+  #   volumes:
+  #     - ./postgres:/var/lib/postgresql/data
+  #   ports:
+  #    - 5433:5432
